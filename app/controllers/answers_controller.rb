@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   def get_answer
 
-    render body: 'text goes here'
+    render body: 'OK'
   end
 end
