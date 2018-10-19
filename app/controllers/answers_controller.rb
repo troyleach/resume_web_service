@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
     list_of_questions_and_keys = {
       "Ping" => "OK",
       "Name" => "Troy Wade Leach",
-      "Email" => "troyleach@outlook.com",
+      "Email Address" => "troyleach@outlook.com",
       "Status" => "Yes"
     }
     #if params["q"] == 'Puzzle'
