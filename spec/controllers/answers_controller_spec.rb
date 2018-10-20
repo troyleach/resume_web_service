@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   describe 'puzzle' do
     xit 'it returns an answer' do
+      #TODO test fails, algorithm
       params = {"q"=>"Puzzle",
                 "d"=>"Please solve this puzzle:\n ABCD\nA=>--\nB<---\nC-<=-\nD>---\n" }
       get :get_answer, params: params
-      expect(response.body).to eq('ABCD\nA=>><\nB<=><\nC<<=<\nD>>>=\n')
+      expect(response.body).to eq("ABCD\nA=>><\nB<=><\nC<<=<\nD>>>=\n")
     end
   end
 

@@ -1,5 +1,7 @@
 module SolvePuzzle
-  def solve_puzzle
+  def solve_puzzle(string)
+    board = make_board(string)
+    format_string(solve(board))
   end
 
   def make_board(string)
