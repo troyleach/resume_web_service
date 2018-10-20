@@ -1,7 +1,10 @@
 module SolvePuzzle
   def solve_puzzle(string)
     board = make_board(string)
-    format_string(solve(board))
+    # When things are figured out uncomment this
+    #format_string(solve(board))
+    #and delete this
+    solve(board)
   end
 
   def make_board(string)

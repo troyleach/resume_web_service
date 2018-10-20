@@ -9,6 +9,93 @@ describe 'Solve Puzzle' do
   let(:string_five) {"Please solve this puzzle:\n ABCD\nA-<--\nB>---\nC<-=-\nD->-=\n"}
   let(:string_six) {"Please solve this puzzle:\n ABCD\nA=->-\nB>---\nC<-=-\nD--<-\n"}
 
+  #let(:passing_string_per_emx_two) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
+  #{"q"=>"Puzzle", "d"=>"Please solve this puzzle:\n ABCD\nA=--<\nB-=->\nC<---\nD>---\n"}
+
+  let(:passing_string_zero) {"Please solve this puzzle:\n ABCD\nA=--<\nB-=->\nC<---\nD>---\n"}
+  #top on screen
+      expect_zero = [
+        ["=", "<", "<", "<"],
+        [">", "=", "<", ">"],
+        ["<", ">", "=", "<"],
+        [">", ">", ">", "="]
+      ]
+      # per my method the string below wold be the same but the tests fail (the way I populate the board)
+  let(:failing_string_one) {"Please solve this puzzle:\n ABCD\nA---<\nB--->\nC<-=-\nD>--=\n"}
+      expect_one = [
+        ["=", "<", ">", "<"],
+        [">", "=", ">", ">"],
+        ["<", "<", "=", "<"],
+        [">", "<", ">", "="]
+      ]
+
+  # this one passs on emx same as above the way I populate the board does NOT end with =
+  let(:expect_two_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
+      expect_two = [["=", ">", "<", "<"], [">", "=", ">", "<"], [">", "<", "=", "<"], [">", ">", "<", "="]]
+
+      # this one fails on emx same as below the way i populate the board end wtih =
+  let(:expect_three_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<=\n"}
+      expect_three = [
+        ["=", ">", ">", ">"],
+        ["<", "=", ">", ">"],
+        ["<", "<", "=", ">"],
+        ["<", "<", "<", "="]
+      ]
+
+      # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
+      # Please solve this puzzle: ABCD A---< B---> C<-=- D>--= fail
+      # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
+      # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
+
+  context 'Puzzle' do
+    it 'troys method passes on EMX' do
+      # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
+      expect(solve_puzzle(passing_string_zero)).to eq(expect_zero)
+    end
+  end
+
+  context 'Puzzle' do
+    it 'troys method fails on EMX' do
+      # Please solve this puzzle: ABCD A---< B---> C<-=- D>--= fail
+      expect(solve_puzzle(failing_string_one)).to eq(expect_one)
+    end
+  end
+
+  context 'Puzzle' do
+    #GOOD
+    it 'troys method passes on EMX' do
+      # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
+      expect(solve_puzzle(expect_two_string)).to eq(expect_two)
+    end
+  end
+
+  context 'Puzzle' do
+    #GOOD
+    it 'this one fails on EMX' do
+    # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
+      expect(solve_puzzle(expect_three_string)).to eq(expect_three)
+    end
+  end
+
+
+
+
+
+  # NOTES old tests below
+  context 'passes test per EMX service' do
+    xit 'returns positive resutl' do
+      let(:failing_string_per_emx) {"Please solve this puzzle:\n ABCD\nA---<\nB--->\nC<-=-\nD>--=\n"}
+      emx_expect = [
+        ["=", "<", ">", "<"],
+        [">", "=", ">", ">"],
+        ["<", "<", "=", "<"],
+        [">", "<", ">", "="]
+      ]
+      expect(solve_puzzle(failing_string_per_emx)).to eq([])
+      
+    end
+  end
+
   context 'returns the correct board' do
     xit 'it returns an answer' do
       expect(make_board(string_one)).to eq(starting_board_expect_one)
@@ -27,6 +114,7 @@ describe 'Solve Puzzle' do
       expect(solve(starting_board)).to eq(finished_board_expectation)
     end
   end
+
   context 'returns the correct board' do
     xit 'solves the puzzle three' do
       #{"q"=>"Puzzle", "d"=>"Please solve this puzzle:\n ABCD\nA=->-\nB>---\nC<-=-\nD--<-\n"}
@@ -44,22 +132,17 @@ describe 'Solve Puzzle' do
       #expect(solve(starting_board)).to eq(expectation_three)
     end
   end
+
   context 'returns the correct board' do
     xit 'solves the puzzle four' do
       #{"q"=>"Puzzle", "d"=>"Please solve this puzzle:\n ABCD\nA=-<-\nB--->\nC---<\nD-->-\n"}
-
       expectation_four = [
         ["=", "<", "<", "<"],
         [">", "=", ">", ">"],
         [">", "<", "=", "<"],
         [">", "<", ">", "="]
       ]
-      starting_board = make_board(string_four)
-      p starting_board
-      p solve(starting_board)
-      p expectation_four
-      puts ' -' * 50
-      #expect(solve(starting_board)).to eq(expectation_four)
+      expect(solve(starting_board)).to eq(expectation_four)
     end
   end
   context 'returns the correct board' do
@@ -107,6 +190,7 @@ describe 'Solve Puzzle' do
         ["<", "<", "=", ">"],
         ["<", "<", "<", "="]
       ]
+
       starting_board = make_board(string_three)
       p starting_board
       p solve(starting_board)
@@ -135,11 +219,52 @@ describe 'Solve Puzzle' do
   end
 
   context 'solved puzzle' do
-    it 'returns a formated string' do
+    xit 'returns a formated string' do
       expect(format_string(finished_board_expectation)).to eq(solved_puzzle_string)
     end
   end
 
+  #below are just case tests to see stuff
+  context 'Puzzle' do
+    xit 'this is the two puzzle strings' do
+      starting_board_one = make_board(passing_string_per_emx)
+      #p starting_board_one
+      #passing_boaard_one = solve(starting_board_one)
+      #p passing_string_per_emx_expect
+      #puts ' -' * 50
+
+      starting_board_two = make_board(failing_string_per_emx)
+      #p starting_board_two
+      #passing_boaard_two = solve(starting_board_two)
+      #p failing_string_per_emx_expect
+      #puts ' -' * 50
+      p 'This is the two puzzle strings top one passes bottom one does not'
+      p starting_board_one
+      p starting_board_two
+      puts ' -' * 50
+      #p passing_boaard_one
+      #p failing_string_per_emx_expect
+    end
+  end
+  
+  context 'Puzzle' do
+    xit 'this is the two puzzle strings' do
+      #starting_board_one = make_board(passing_string_per_emx)
+      starting_board_two = make_board(passing_string_per_emx)
+      #p starting_board_one
+      passing_boaard_two = solve(starting_board_two)
+      #p passing_string_per_emx_expect
+      #puts ' -' * 50
+
+      #p starting_board_two
+      #passing_boaard_two = solve(starting_board_two)
+      #p failing_string_per_emx_expect
+      #puts ' -' * 50
+      p 'These are the two solved puzzle from my service Bottom one from EMX'
+      p starting_board_two
+      #p emx_expect
+    end
+  end
 end
 
 
