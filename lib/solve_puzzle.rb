@@ -26,9 +26,10 @@ module SolvePuzzle
   def solve(starting_board)
     starting_board.each_with_index do |row_array, row_index|
       row_array.each_with_index do |cell, column_index|
-        if cell == "="
-          next 
-        elsif cell == ">" || cell == "<"
+        #if I skip the = sign stuff goes wrong
+        #if cell == "="
+          #next 
+        if cell == ">" || cell == "<"
           next 
         else
           if row_index == column_index
