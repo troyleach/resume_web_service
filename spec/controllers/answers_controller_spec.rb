@@ -64,3 +64,8 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 end
+
+def puzzle_solved
+  #{"q"=>"Puzzle", "d"=>"Please solve this puzzle:\n ABCD\nA=>--\nB<---\nC-<=-\nD>---\n"}
+  "ABCD\nA=>><\nB<=><\nC<<=<\nD>>>=\n"
+end
