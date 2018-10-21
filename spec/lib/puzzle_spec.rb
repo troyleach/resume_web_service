@@ -1,7 +1,7 @@
 require 'rails_helper'
 include SolvePuzzle
 
-xdescribe 'Solve Puzzle' do
+describe 'Solve Puzzle' do
   let(:string_one) { "Please solve this puzzle:\n ABCD\nA=>--\nB<---\nC-<=-\nD>---\n"  }
   let(:string_two) { "Please solve this puzzle:\n ABCDEF\nA=>--\nB<---\nC-<=-\nD>---\nE->--\nF->--" }
   let(:string_three) {"Please solve this puzzle:\n ABCD\nA=->-\nB>---\nC<-=-\nD--<-\n"}
@@ -14,74 +14,56 @@ xdescribe 'Solve Puzzle' do
 
   let(:passing_string_zero) {"Please solve this puzzle:\n ABCD\nA=--<\nB-=->\nC<---\nD>---\n"}
   #top on screen
-      expect_zero = [
-        ["=", "<", "<", "<"],
-        [">", "=", "<", ">"],
-        ["<", ">", "=", "<"],
-        [">", ">", ">", "="]
-      ]
-      # per my method the string below wold be the same but the tests fail (the way I populate the board)
+  expect_zero = [
+    ["=", "<", "<", "<"],
+    [">", "=", "<", ">"],
+    ["<", ">", "=", "<"],
+    [">", ">", ">", "="]
+  ]
+  # per my method the string below wold be the same but the tests fail (the way I populate the board)
   let(:failing_string_one) {"Please solve this puzzle:\n ABCD\nA---<\nB--->\nC<-=-\nD>--=\n"}
-      expect_one = [
-        ["=", "<", ">", "<"],
-        [">", "=", ">", ">"],
-        ["<", "<", "=", "<"],
-        [">", "<", ">", "="]
-      ]
+  expect_one = [
+    ["=", "<", ">", "<"],
+    [">", "=", ">", ">"],
+    ["<", "<", "=", "<"],
+    [">", "<", ">", "="]
+  ]
 
   # this one passs on emx same as above the way I populate the board does NOT end with =
   let(:expect_two_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
-      expect_two = [["=", ">", "<", "<"], [">", "=", ">", "<"], [">", "<", "=", "<"], [">", ">", "<", "="]]
+  expect_two = [["=", ">", "<", "<"], [">", "=", ">", "<"], [">", "<", "=", "<"], [">", ">", "<", "="]]
 
-      # this one fails on emx same as below the way i populate the board end wtih =
+  # this one fails on emx same as below the way i populate the board end wtih =
   let(:expect_three_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<=\n"}
-      expect_three = [
-        ["=", ">", ">", ">"],
-        ["<", "=", ">", ">"],
-        ["<", "<", "=", ">"],
-        ["<", "<", "<", "="]
-      ]
+  expect_three = [
+    ["=", ">", ">", ">"],
+    ["<", "=", ">", ">"],
+    ["<", "<", "=", ">"],
+    ["<", "<", "<", "="]
+  ]
 
-      # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
-      let(:expect_four_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
-      expect_four = [
-        ["=", "<", ">", "<"],
-        [">", "=", ">", ">"],
-        ["<", "<", "=", "<"],
-        [">", "<", ">", "="]
-      ]
+  # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
+  let(:expect_four_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
+  expect_four = [
+    ["=", "<", ">", "<"],
+    [">", "=", ">", ">"],
+    ["<", "<", "=", "<"],
+    [">", "<", ">", "="]
+  ]
 
-    
-
-      # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
-      # Please solve this puzzle: ABCD A---< B---> C<-=- D>--= fail
-      # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
-      # Please solve this puzzle: ABCD A=--> B---< C-<-- D->-= fail
-      # Please solve this puzzle: ABCD A=--> B--<- C---< D-->= fail
-      #
-      # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
-      # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
-  context 'Puzzle' do
-    it 'to play around with' do
-      letters = [*('a'..'z')].slice(0, 16)
-      
-      solve(letters.each_slice(4).to_a)
-
-
-      # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
-      #expect(solve_puzzle(passing_string_zero)).to eq(expect_zero)
-    end
-  end
+  # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
+  # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
+  # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
 
   context 'Puzzle' do
-    it 'troys method passes on EMX' do
+    xit 'troys method passes on EMX' do
       # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
       expect(solve_puzzle(passing_string_zero)).to eq(expect_zero)
     end
   end
 
   context 'Puzzle' do
-    it 'troys method fails on EMX' do
+    xit 'troys method fails on EMX' do
       # Please solve this puzzle: ABCD A---< B---> C<-=- D>--= fail
       expect(solve_puzzle(failing_string_one)).to eq(expect_one)
     end
@@ -89,7 +71,7 @@ xdescribe 'Solve Puzzle' do
 
   context 'Puzzle' do
     #GOOD
-    it 'troys method passes on EMX' do
+    xit 'troys method passes on EMX' do
       # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
       expect(solve_puzzle(expect_two_string)).to eq(expect_two)
     end
@@ -97,8 +79,8 @@ xdescribe 'Solve Puzzle' do
 
   context 'Puzzle' do
     #GOOD
-    it 'this one fails on EMX' do
-    # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
+    xit 'this one fails on EMX' do
+      # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
       expect(solve_puzzle(expect_three_string)).to eq(expect_three)
     end
   end
@@ -126,7 +108,6 @@ xdescribe 'Solve Puzzle' do
         [">", "<", ">", "="]
       ]
       expect(solve_puzzle(failing_string_per_emx)).to eq([])
-      
     end
   end
 
@@ -253,7 +234,7 @@ xdescribe 'Solve Puzzle' do
   end
 
   context 'solved puzzle' do
-    xit 'returns a formated string' do
+    it 'returns a formated string' do
       expect(format_string(finished_board_expectation)).to eq(solved_puzzle_string)
     end
   end
@@ -280,7 +261,7 @@ xdescribe 'Solve Puzzle' do
       #p failing_string_per_emx_expect
     end
   end
-  
+
   context 'Puzzle' do
     xit 'this is the two puzzle strings' do
       #starting_board_one = make_board(passing_string_per_emx)
@@ -338,3 +319,34 @@ def solved_puzzle_string
   "ABCD\nA=>><\nB<=><\nC<<=<\nD>>>=\n"
 end
 
+#Please solve this puzzle: ABCD A=--< B-=-> C<--- D>---
+#A=<<< B>=<> C<>=< D>>>=
+
+#is the same as this per my method
+#Please solve this puzzle: ABCD A---< B---> C<-=- D>--=
+#A=<>< B>=>> C<<=< D><>=
+
+
+#Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<-
+#A=><< B>=>< C><=< D>><=
+
+#Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= 
+#A=>>> B<=>> C<<=> D<<<=
+
+#Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<-
+#Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<=
+#A=>>> B<=>> C<<=> D<<<=
+
+#B-->-
+#B<=>>
+
+#B-->-
+#B>=>>
+
+
+
+#Please solve this puzzle: ABCD A=-<- B-->- C>--- D<---
+#Please solve this puzzle: ABCD A--<- B-=>- C>--- D<--=
+#Please solve this puzzle: ABCD A=-<- B-->- C>--- D<--=
+#Please solve this puzzle: ABCD A=-<- B-->- C>-=- D<--=
+#A=<<> B>=>> C><=> D<<<=
