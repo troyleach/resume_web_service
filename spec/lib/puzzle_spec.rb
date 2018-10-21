@@ -1,7 +1,7 @@
 require 'rails_helper'
 include SolvePuzzle
 
-describe 'Solve Puzzle' do
+xdescribe 'Solve Puzzle' do
   let(:string_one) { "Please solve this puzzle:\n ABCD\nA=>--\nB<---\nC-<=-\nD>---\n"  }
   let(:string_two) { "Please solve this puzzle:\n ABCDEF\nA=>--\nB<---\nC-<=-\nD>---\nE->--\nF->--" }
   let(:string_three) {"Please solve this puzzle:\n ABCD\nA=->-\nB>---\nC<-=-\nD--<-\n"}
@@ -42,10 +42,36 @@ describe 'Solve Puzzle' do
         ["<", "<", "<", "="]
       ]
 
+      # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
+      let(:expect_four_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
+      expect_four = [
+        ["=", "<", ">", "<"],
+        [">", "=", ">", ">"],
+        ["<", "<", "=", "<"],
+        [">", "<", ">", "="]
+      ]
+
+    
+
       # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
       # Please solve this puzzle: ABCD A---< B---> C<-=- D>--= fail
+      # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
+      # Please solve this puzzle: ABCD A=--> B---< C-<-- D->-= fail
+      # Please solve this puzzle: ABCD A=--> B--<- C---< D-->= fail
+      #
       # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
       # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
+  context 'Puzzle' do
+    it 'to play around with' do
+      letters = [*('a'..'z')].slice(0, 16)
+      
+      solve(letters.each_slice(4).to_a)
+
+
+      # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
+      #expect(solve_puzzle(passing_string_zero)).to eq(expect_zero)
+    end
+  end
 
   context 'Puzzle' do
     it 'troys method passes on EMX' do
@@ -74,6 +100,14 @@ describe 'Solve Puzzle' do
     it 'this one fails on EMX' do
     # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
       expect(solve_puzzle(expect_three_string)).to eq(expect_three)
+    end
+  end
+
+  context 'Puzzle' do
+    #not sure this right
+    xit 'this one fails on EMX' do
+      # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
+      expect(solve_puzzle(expect_four_string)).to eq(expect_four)
     end
   end
 

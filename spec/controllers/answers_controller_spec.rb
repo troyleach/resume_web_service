@@ -12,15 +12,15 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'GET /answer' do
+    before { @user = create(:user) }
+
     context 'expect 200' do
       it 'it returns an answer' do
         get :get_answer
         expect(response).to have_http_status(:success)
       end
-    end
 
-    context 'returns "ok"' do
-      it 'positive result' do
+      it 'Ping returns OK' do
         params = {"q"=>"Ping",
                   "d"=>"Please return OK so that I know your service works."}
         get :get_answer, params: params
@@ -33,7 +33,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Name",
                   "d"=>"What is your full name?"}
         get :get_answer, params: params
-        expect(response.body).to eq('Troy Wade Leach')
+        expect(response.body).to eq(@user.resume["name"])
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Email Address", "d"=>"What is your email address?"}
 
         get :get_answer, params: params
-        expect(response.body).to eq('troyleach@outlook.com')
+        expect(response.body).to eq(@user.resume["email address"])
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Phone", "d"=>"Please provide a phone number we can use to reach you."}
 
         get :get_answer, params: params
-        expect(response.body).to eq('720-552-0720')
+        expect(response.body).to eq(@user.resume["phone"])
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Position", "d"=>"Which position at Balihoo are you applying for?"}
 
         get :get_answer, params: params
-        expect(response.body).to eq('Senior Full Stack Engineer')
+        expect(response.body).to eq(@user.resume["position"])
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Years", "d"=>"How many years of software development experience do you have?"}
 
         get :get_answer, params: params
-        expect(response.body).to eq('4 Years of experience')
+        expect(response.body).to eq(@user.resume["years"])
       end
     end
 
@@ -82,7 +82,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Referrer", "d"=>"How did you hear about this position?"}
 
         get :get_answer, params: params
-        expect(response.body).to eq('https://angel.co/')
+        expect(response.body).to eq(@user.resume["referrer"])
       end
     end
 
@@ -92,17 +92,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Degree", "d"=>"Please list your relevant university degree(s)."}
 
         get :get_answer, params: params
-        expect(response.body).to eq('RoR Web Development, Actualize, HTML and Web Development, Colorado Free University')
-      end
-    end
-
-    context 'Relevant degrees(s)' do
-      it 'positive result' do
-
-        params = {"q"=>"Degree", "d"=>"Please list your relevant university degree(s)."}
-
-        get :get_answer, params: params
-        expect(response.body).to eq('RoR Web Development, Actualize, HTML and Web Development, Colorado Free University')
+        expect(response.body).to eq(@user.resume["degree"])
       end
     end
 
@@ -112,17 +102,17 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Resume", "d"=>"Please provide a URL where we can download your resume and cover letter."}
 
         get :get_answer, params: params
-        expect(response.body).to eq('https://www.google.com')
+        expect(response.body).to eq(@user.resume["resume"])
       end
     end
 
     context 'URL for resume web service' do
       it 'positive result' do
-
-        params = {"q"=>"Source", "d"=>"Please provide a URL where we can download the source code of your resume submission web service."}
+        params = {"q"=>"Source",
+                  "d"=>"Please provide a URL where we can download the source code of your resume submission web service."}
 
         get :get_answer, params: params
-        expect(response.body).to eq('https://www.google.com')
+        expect(response.body).to eq(@user.resume["source"])
       end
     end
 
@@ -131,7 +121,7 @@ RSpec.describe AnswersController, type: :controller do
         params = {"q"=>"Status",
                   "d"=>"Can you provide proof of eligibility to work in the US?"}
         get :get_answer, params: params
-        expect(response.body).to eq('Yes')
+        expect(response.body).to eq(@user.resume["status"])
       end
     end
 

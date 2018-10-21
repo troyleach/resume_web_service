@@ -1,11 +1,23 @@
+# NOTE: goes with out saying that a user ID of some sort would have to be past in 
+# the params
+
 class AnswersController < ApplicationController
   include SolvePuzzle
+  before_action :get_user
 
   def get_answer
-    if params['q'] == 'Puzzle'
-      result = solve_puzzle(params['d'])
-    else
-      result = troy_leach_resume[params["q"]]
+    return if params.nil? || params['q'].nil?
+    ping? ? result = 'OK' : nil
+
+    query = params['q'].downcase
+    question = params['d']
+
+    unless result.present?
+      if query == 'puzzle'
+        result = solve_puzzle(question)
+      else
+        result = @user.resume[query]
+      end
     end
 
     render body: result
@@ -13,19 +25,11 @@ class AnswersController < ApplicationController
 
   private
 
-  def troy_leach_resume
-    {
-      "Ping" => "OK",
-      "Name" => "Troy Wade Leach",
-      "Email Address" => "troyleach@outlook.com",
-      "Phone" => "720-552-0720",
-      "Position" => "Senior Full Stack Engineer",
-      "Years" => "4 Years of experience",
-      "Referrer" => "https://angel.co/",
-      "Degree" => "RoR Web Development, Actualize, HTML and Web Development, Colorado Free University",
-      "Resume" => "https://www.google.com",
-      "Source" => "https://www.google.com",
-      "Status" => "Yes"
-    }
+  def get_user
+    @user = User.first
+  end
+
+  def ping?
+    params['q'] == 'Ping'
   end
 end

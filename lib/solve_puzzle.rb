@@ -25,22 +25,55 @@ module SolvePuzzle
 
   def solve(starting_board)
     starting_board.each_with_index do |row_array, row_index|
-      row_array.each_with_index do |cell, column_index|
-        #if I skip the = sign stuff goes wrong
-        #if cell == "="
-          #next 
-        if cell == ">" || cell == "<"
-          next 
-        else
-          if row_index == column_index
-            row_array[column_index] = "="
-          else
-            row_index > column_index ? row_array[column_index] = ">" : row_array[column_index] = "<"
+      if row_array.count('-') > 1
+        (row_array.length - 1).times do |cell|
+          if row_array[cell] > row_array[cell+1]
+            row_array[cell] = "<"
+          elsif row_array[cell] < row_array[cell+1]
+            row_array[cell] = ">"
+          else next
           end
         end
       end
+      #row_array.each_with_index do |cell, column_index|
+      #row_array.each do |cell|
+      #[A]>[B] || [A]<[B]
+      #puts row_array
+
+
+      #puts "[#{cell}] and the one to the right [#{cell.next}]"
+      #puts cell < cell.next
+
+
+      #end
     end
-    starting_board
+    #print_new_board(starting_board)
+    starting_board.first
+  end
+
+  def print_new_board(board)
+    board.each_with_index do |row_array, row_index|
+      row_array.each_with_index do |cell, column_index|
+        #puts "#{row_array[cell]} and it partner to the right #{row_array[cell+1]}"
+        #puts row_array[cell] > row_array[cell+1]
+        puts "cell: #{cell}   #{row_array}}"
+      end
+    end
   end
 end
 
+#below did not work
+
+        #if cell == "="
+          #next 
+        #elsif cell == ">" || cell == "<"
+          #next 
+        #else
+          ##row_index < column_index ? row_array[column_index] = ">" : row_array[column_index] = "<"
+          #if row_index == column_index
+            #row_array[column_index] = "="
+          #else
+            ##puts "row_index: #{row_index} : column_index: #{column_index}"
+            #row_index > column_index ? row_array[column_index] = ">" : row_array[column_index] = "<"
+          #end
+        #end
