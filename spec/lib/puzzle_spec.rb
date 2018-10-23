@@ -20,7 +20,6 @@ describe 'Solve Puzzle' do
     ["<", ">", "=", "<"],
     [">", ">", ">", "="]
   ]
-  # per my method the string below wold be the same but the tests fail (the way I populate the board)
   let(:failing_string_one) {"Please solve this puzzle:\n ABCD\nA---<\nB--->\nC<-=-\nD>--=\n"}
   expect_one = [
     ["=", "<", ">", "<"],
@@ -29,7 +28,6 @@ describe 'Solve Puzzle' do
     [">", "<", ">", "="]
   ]
 
-  # this one passs on emx same as above the way I populate the board does NOT end with =
   let(:expect_two_string) {"Please solve this puzzle:\n ABCD\nA->--\nB-->-\nC-<=-\nD--<-\n"}
   expect_two = [["=", ">", "<", "<"], [">", "=", ">", "<"], [">", "<", "=", "<"], [">", ">", "<", "="]]
 
@@ -57,6 +55,7 @@ describe 'Solve Puzzle' do
 
   context 'Puzzle' do
     xit 'troys method passes on EMX' do
+      # FALSE POSITIVE
       # Please solve this puzzle: ABCD A=--< B-=-> C<--- D>--- pass
       expect(solve_puzzle(passing_string_zero)).to eq(expect_zero)
     end
@@ -65,7 +64,8 @@ describe 'Solve Puzzle' do
   context 'Puzzle' do
     xit 'troys method fails on EMX' do
       # Please solve this puzzle: ABCD A---< B---> C<-=- D>--= fail
-      expect(solve_puzzle(failing_string_one)).to eq(expect_one)
+      #puzzle = Puzzle.new(failing_string_one)
+      expect(solve(failing_string_one)).to eq(expect_one)
     end
   end
 
@@ -73,7 +73,7 @@ describe 'Solve Puzzle' do
     #GOOD
     xit 'troys method passes on EMX' do
       # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<- pass
-      expect(solve_puzzle(expect_two_string)).to eq(expect_two)
+      expect(solve(expect_two_string)).to eq(expect_two)
     end
   end
 
@@ -81,7 +81,7 @@ describe 'Solve Puzzle' do
     #GOOD
     xit 'this one fails on EMX' do
       # Please solve this puzzle: ABCD A->-- B-->- C-<=- D--<= fail
-      expect(solve_puzzle(expect_three_string)).to eq(expect_three)
+      expect(solve(expect_three_string)).to eq(expect_three)
     end
   end
 
@@ -89,7 +89,7 @@ describe 'Solve Puzzle' do
     #not sure this right
     xit 'this one fails on EMX' do
       # Please solve this puzzle: ABCD A---< B---> C<--- D>--= fail
-      expect(solve_puzzle(expect_four_string)).to eq(expect_four)
+      expect(solve(expect_four_string)).to eq(expect_four)
     end
   end
 
@@ -205,6 +205,12 @@ describe 'Solve Puzzle' do
         ["<", "<", "=", ">"],
         ["<", "<", "<", "="]
       ]
+
+      p 'expects'
+      p expectation_three
+      p expectation_four
+      p expectation_five
+      p expectation_six
 
       starting_board = make_board(string_three)
       p starting_board
@@ -346,6 +352,10 @@ end
 
 
 #Please solve this puzzle: ABCD A=-<- B-->- C>--- D<---
+#
+#
+#
+#
 #Please solve this puzzle: ABCD A--<- B-=>- C>--- D<--=
 #Please solve this puzzle: ABCD A=-<- B-->- C>--- D<--=
 #Please solve this puzzle: ABCD A=-<- B-->- C>-=- D<--=
