@@ -14,9 +14,8 @@ module SolvePuzzle
     4.times do |_|
       solve_puzzle(starting_board)
     end
-    starting_board.transpose
-
-    #format_string(solve(board))
+    
+    format_string(starting_board)
   end
 
   def valid_puzzle(string)
@@ -42,7 +41,7 @@ module SolvePuzzle
 
 
   #def solve_puzzle(starting_board)
-  def solve(starting_board)
+  def solve_puzzle(starting_board)
     return starting_board if solved?(starting_board)
     #return true if puzzle.solved?
     starting_board.each_with_index do |row_array, row_index|
